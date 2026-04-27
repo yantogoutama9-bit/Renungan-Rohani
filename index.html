@@ -1,613 +1,228 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Renungan Harian Embun Pagi - Hari Ini</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap');
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #1a237e 0%, #3949ab 50%, #5c6bc0 100%);
-            color: #e8eaf6;
-            line-height: 1.8;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        /* Navigation Menu */
-        .nav-menu {
-            background: rgba(13, 22, 66, 0.85);
-            backdrop-filter: blur(10px);
-            padding: 15px 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
-            border-bottom: 1px solid rgba(255,215,0,0.2);
-            position: sticky;
-            top: 0;
-            z-index: 999;
-        }
-        
-        .nav-link {
-            color: #e8eaf6;
-            text-decoration: none;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            padding: 8px 20px;
-            border-radius: 25px;
-            transition: all 0.3s ease;
-            border: 1px solid transparent;
-            cursor: pointer;
-            background: transparent;
-            font-family: 'Inter', sans-serif;
-        }
-        
-        .nav-link:hover {
-            background: rgba(255,215,0,0.1);
-            border-color: rgba(255,215,0,0.4);
-            color: #ffd700;
-        }
-        
-        .nav-link.active {
-            background: rgba(255,215,0,0.2);
-            border-color: #ffd700;
-            color: #ffd700;
-            font-weight: 500;
-        }
-        
-        /* Header */
-        header {
-            text-align: center;
-            padding: 60px 20px 40px;
-            background: rgba(255,255,255,0.08);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        
-        .logo {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2.2rem;
-            font-weight: 600;
-            letter-spacing: 3px;
-            color: #ffd700;
-            margin-bottom: 8px;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-        
-        .tagline {
-            font-size: 0.85rem;
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            color: #c5b358;
-            font-weight: 300;
-        }
-        
-        .date-display {
-            margin-top: 20px;
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.1rem;
-            color: #b0bec5;
-            font-style: italic;
-        }
-        
-        /* Main Content */
-        main {
-            flex: 1;
-            max-width: 800px;
-            width: 100%;
-            margin: 0 auto;
-            padding: 40px 30px;
-        }
-        
-        /* Page Sections */
-        .page-section {
-            display: none;
-            animation: fadeIn 0.6s ease-out;
-        }
-        
-        .page-section.active {
-            display: block;
-        }
-        
-        /* Home Page Styles */
-        .home-intro {
-            text-align: center;
-            padding: 40px 20px;
-        }
-        
-        .home-title {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2rem;
-            color: #ffd700;
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
-        
-        .home-description {
-            font-size: 1.1rem;
-            line-height: 2;
-            color: #e8eaf6;
-            margin-bottom: 40px;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .home-verse {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.3rem;
-            font-style: italic;
-            color: #c5b358;
-            border-left: 3px solid #ffd700;
-            padding-left: 20px;
-            margin: 30px auto;
-            max-width: 500px;
-            text-align: left;
-        }
-        
-        /* Button Styles */
-        .btn-container {
-            text-align: center;
-            margin: 40px 0;
-        }
-        
-        .btn-renungan {
-            display: inline-block;
-            background: linear-gradient(135deg, #ffd700, #ffed4e);
-            color: #1a237e;
-            padding: 15px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1.1rem;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(255,215,0,0.3);
-            border: 2px solid transparent;
-        }
-        
-        .btn-renungan:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(255,215,0,0.4);
-            border-color: #fff;
-        }
-        
-        /* YouTube Section */
-        .youtube-section {
-            background: rgba(255,255,255,0.95);
-            padding: 40px;
-            border-radius: 12px;
-            margin-top: 40px;
-            color: #1a237e;
-            text-align: center;
-        }
-        
-        .youtube-link-box {
-            background: #e8eaf6;
-            padding: 30px;
-            border-radius: 8px;
-            border-left: 4px solid #ffd700;
-            margin-top: 20px;
-        }
-
-        .youtube-thumbnail {
-            width: 100%;
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            display: block;
-        }
-        
-        .youtube-link {
-            display: inline-block;
-            color: #b8860b;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: color 0.3s ease;
-            word-break: break-all;
-        }
-        
-        .youtube-link:hover {
-            color: #ffd700;
-        }
-        
-        /* Renungan Section */
-        .renungan-section {
-            background: rgba(255,255,255,0.95);
-            padding: 50px;
-            border-radius: 12px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-            margin-bottom: 40px;
-            position: relative;
-            overflow: hidden;
-            color: #1a237e;
-        }
-        
-        .renungan-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #ffd700, #ffed4e, #ffd700);
-        }
-        
-        .section-label {
-            font-size: 0.75rem;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: #1a237e;
-            margin-bottom: 30px;
-            font-weight: 600;
-            opacity: 0.8;
-        }
-        
-        .verse-ref {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.3rem;
-            color: #0d1642;
-            margin-bottom: 25px;
-            font-style: italic;
-            border-left: 3px solid #ffd700;
-            padding-left: 20px;
-            font-weight: 600;
-        }
-        
-        .verse-ref strong {
-            color: #b8860b;
-        }
-        
-        .renungan-text {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.25rem;
-            line-height: 2;
-            color: #283593;
-            text-align: justify;
-            margin-bottom: 30px;
-        }
-        
-        .renungan-text p {
-            margin-bottom: 1.2em;
-        }
-        
-        .renungan-text .logo {
-            color: #1a237e;
-            text-shadow: none;
-            font-size: 1.8rem;
-            margin-bottom: 20px;
-            font-family: 'Cormorant Garamond', serif;
-        }
-        
-        .prayer {
-            background: #e8eaf6;
-            padding: 25px;
-            border-radius: 8px;
-            font-style: italic;
-            color: #1a237e;
-            border-left: 4px solid #ffd700;
-            margin-top: 30px;
-        }
-        
-        .prayer-label {
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: #1a237e;
-            margin-bottom: 10px;
-            font-style: normal;
-            font-weight: 600;
-            opacity: 0.7;
-        }
-        
-        /* Quote Section */
-        .quote-section {
-            text-align: center;
-            padding: 80px 40px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 12px;
-            backdrop-filter: blur(10px);
-            min-height: 400px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-        
-        .quote-icon {
-            font-size: 4rem;
-            color: #ffd700;
-            line-height: 1;
-            margin-bottom: 30px;
-            opacity: 0.8;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-        }
-        
-        .quote-text {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.8rem;
-            font-style: italic;
-            color: #fff8e1;
-            line-height: 1.6;
-            margin-bottom: 30px;
-            position: relative;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        
-        .quote-author {
-            font-size: 1rem;
-            color: #c5b358;
-            letter-spacing: 1px;
-            font-weight: 400;
-        }
-        
-        .divider {
-            width: 40px;
-            height: 1px;
-            background: #ffd700;
-            margin: 30px auto;
-            opacity: 0.5;
-        }
-        
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            background: rgba(13, 22, 66, 0.6);
-            border-top: 1px solid rgba(255,255,255,0.1);
-            font-size: 0.8rem;
-            color: #9fa8da;
-            letter-spacing: 1px;
-        }
-        
-        .copyright {
-            margin-bottom: 10px;
-            color: #ffd700;
-        }
-        
-        .footer-verse {
-            font-family: 'Cormorant Garamond', serif;
-            font-style: italic;
-            color: #b0bec5;
-            font-size: 0.9rem;
-            margin-top: 15px;
-        }
-        
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-menu {
-                gap: 10px;
-                padding: 12px 10px;
-            }
-            
-            .nav-link {
-                font-size: 0.8rem;
-                padding: 6px 15px;
-            }
-            
-            .renungan-section, .youtube-section {
-                padding: 30px;
-            }
-            
-            .renungan-text {
-                font-size: 1.1rem;
-            }
-            
-            .quote-text {
-                font-size: 1.3rem;
-            }
-            
-            .logo {
-                font-size: 1.8rem;
-            }
-            
-            .btn-renungan {
-                padding: 12px 30px;
-                font-size: 1rem;
-            }
-        }
-        
-        /* Print styles */
-        @media print {
-            .nav-menu {
-                display: none !important;
-            }
-            
-            body {
-                background: #fff !important;
-                color: #000 !important;
-            }
-            
-            .renungan-section, .youtube-section {
-                background: #fff !important;
-                color: #000 !important;
-                box-shadow: none !important;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Renungan Rohani</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#FDFCF8;color:#2C2C2C;min-height:100vh}
+.header{background:linear-gradient(135deg,#C5A059,#A0833F);color:white;padding:20px;text-align:center;box-shadow:0 2px 10px rgba(0,0,0,0.1)}
+.header h1{font-size:1.8rem;margin-bottom:5px}
+.header p{font-size:0.9rem;opacity:0.9}
+.container{max-width:800px;margin:0 auto;padding:20px}
+.menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:15px;margin:20px 0}
+.menu-card{background:white;border-radius:15px;padding:20px;box-shadow:0 2px 15px rgba(0,0,0,0.08);cursor:pointer;transition:all 0.3s;border-left:4px solid #C5A059}
+.menu-card:hover{transform:translateY(-3px);box-shadow:0 5px 25px rgba(0,0,0,0.12)}
+.menu-card h3{color:#A0833F;margin-bottom:8px;font-size:1.1rem}
+.menu-card p{font-size:0.85rem;color:#666;line-height:1.5}
+.section{display:none;background:white;border-radius:15px;padding:25px;box-shadow:0 2px 15px rgba(0,0,0,0.08);margin-bottom:20px}
+.section.active{display:block}
+.section h2{color:#A0833F;margin-bottom:15px;font-size:1.3rem}
+textarea{width:100%;padding:12px;border:2px solid #E8D5A0;border-radius:10px;font-family:inherit;font-size:0.95rem;resize:vertical;min-height:100px;margin-bottom:10px}
+textarea:focus{outline:none;border-color:#C5A059}
+button{background:linear-gradient(135deg,#C5A059,#A0833F);color:white;border:none;padding:12px 25px;border-radius:10px;cursor:pointer;font-size:0.95rem;font-weight:600;transition:all 0.3s}
+button:hover{transform:translateY(-2px);box-shadow:0 5px 15px rgba(197,160,89,0.4)}
+.result{margin-top:20px;padding:20px;background:#FFFDF9;border-radius:10px;border-left:4px solid #C5A059;display:none}
+.result.show{display:block}
+.result h4{color:#A0833F;margin-bottom:10px}
+.result p{line-height:1.8;margin-bottom:10px;font-size:0.95rem}
+.verse{background:#F5F0E8;padding:15px;border-radius:8px;margin:15px 0;font-style:italic;border-left:3px solid #C5A059}
+.quote{background:#2C2C2C;color:#FDFCF8;padding:20px;border-radius:10px;margin:15px 0}
+.quote p{font-style:italic;margin-bottom:8px}
+.quote small{color:#D4B87A}
+.back-btn{background:#666;margin-bottom:15px}
+.back-btn:hover{background:#555}
+.footer{text-align:center;padding:30px;color:#999;font-size:0.85rem}
+</style>
 </head>
 <body>
 
-    <!-- Navigation Menu -->
-    <nav class="nav-menu">
-        <a href="kemarin.html" class="nav-link">Kemarin</a>
-        <a href="index.html" class="nav-link active">Hari Ini</a>
-        <a href="besok.html" class="nav-link">Besok</a>
-        <button class="nav-link" onclick="showPage('quotes')">Quotes</button>
-    </nav>
+<div class="header">
+    <h1>Renungan Rohani</h1>
+    <p>Ciptakan renungan yang menginspirasi hati</p>
+</div>
 
-    <header>
-        <div class="logo">EMBUN PAGI</div>
-        <div class="tagline">Renungan Harian</div>
-        <div class="date-display" id="currentDate"></div>
-    </header>
+<div class="container">
 
-    <main>
-        <!-- HALAMAN BERANDA (TAMPILAN AWAL) -->
-        <section class="page-section active" id="home">
-            <div class="home-intro">
-                <h1 class="home-title">Selamat Datang di Embun Pagi</h1>
-                <p class="home-description">
-                    Embun Pagi adalah renungan harian yang hadir untuk menyegarkan jiwa dan memperkuat iman Anda setiap pagi. Melalui firman Tuhan, kita diajak untuk merenungkan kebenaran ilahi dan menerapkannya dalam kehidupan sehari-hari.
-                </p>
-                <div class="home-verse">
-                    "Firman-Mu pelita bagi kakiku dan terang bagi jalanku."
-                    <br>— Mazmur 119:105
-                </div>
-                <p class="home-description">
-                    Mari mulai hari Anda dengan membaca renungan dan merenungkan quotes inspiratif. Biarkan Roh Kudus menuntun langkah Anda hari ini.
-                </p>
-                
-                <!-- TOMBOL KE RENUNGAN HARI INI -->
-                <div class="btn-container">
-                    <button class="btn-renungan" onclick="showPage('renungan')">
-                        📖 Baca Renungan Hari Ini
-                    </button>
-                </div>
-            </div>
+<!-- Menu Utama -->
+<div id="mainMenu">
+    <div class="menu">
+        <div class="menu-card" onclick="showSection('embun')">
+            <h3>Renungan Embun Pagi</h3>
+            <p>Keterangan singkat + ayat Alkitab yang sesuai dengan kalimat yang Anda berikan.</p>
+        </div>
+        <div class="menu-card" onclick="showSection('psyanto')">
+            <h3>Renungan Ps Yanto</h3>
+            <p>Judul, doa singkat, dan quotes rohani dari berbagai tokoh teologi.</p>
+        </div>
+        <div class="menu-card" onclick="showSection('ucfm')">
+            <h3>Renungan UCFM & Shalom</h3>
+            <p>Renungan dalam bahasa Inggris sederhana dengan ayat dan doa.</p>
+        </div>
+    </div>
+</div>
 
-            <div class="divider"></div>
+<!-- Embun Pagi -->
+<div class="section" id="embunSection">
+    <button class="back-btn" onclick="goBack()">← Kembali</button>
+    <h2>Renungan Embun Pagi</h2>
+    <textarea id="embunInput" placeholder="Masukkan kalimat renungan Anda..."></textarea>
+    <button onclick="generate('embun')">Buat Renungan</button>
+    <div class="result" id="embunResult"></div>
+</div>
 
-            <!-- YOUTUBE LINK SECTION -->
-            <div class="youtube-section">
-                <!-- YOUTUBE LINK SECTION -->
-            <div class="youtube-section">
-                <div class="youtube-link-box">
-                    <!-- GANTI ID VIDEO: qPG45bvea50-->
-                    <img src="https://img.youtube.com/vi/vK3WkdeuCZY/hqdefault.jpg" 
-     alt="Thumbnail Video" 
-     class="youtube-thumbnail"
-     onerror="this.src='https://img.youtube.com/vi/vK3WkdeuCZY/sddefault.jpg'">
-                    <a href="https://www.youtube.com/watch?v=vK3WkdeuCZY" class="youtube-link" target="_blank">
-                        Tonton Video di YouTube →
-                    </a>
-                </div>
-            </div>
-        </section>
+<!-- Ps Yanto -->
+<div class="section" id="psyantoSection">
+    <button class="back-btn" onclick="goBack()">← Kembali</button>
+    <h2>Renungan Ps Yanto</h2>
+    <textarea id="psyantoInput" placeholder="Masukkan tema atau isi renungan..."></textarea>
+    <button onclick="generate('psyanto')">Buat Renungan</button>
+    <div class="result" id="psyantoResult"></div>
+</div>
 
-        <!-- HALAMAN RENUNGAN HARI INI -->
-        <section class="page-section" id="renungan">
-            <div class="renungan-section">
-                <div class="section-label">Renungan Hari Ini</div>
-                
-                <!-- Ayat dasar -->
-                <div class="verse-ref">
-                    Berdasarkan semuanya ini kami mengikat perjanjian yang teguh.
-                    <br><strong>Nehemia 9:38</strong>
-                </div>
-                
-                <!-- Isi Renungan -->
-                <div class="renungan-text">
-                    <div class="logo">Perjanjian yang Diperbarui, Hati yang Diteguhkan</div>
-                    
-                    <p>
-                        Dalam pengalaman kita, kita berkali-kali memperbarui janji kita dengan Allah, secara benar, dan bermanfaat. Setelah dipulihkan dari sakit, seperti Hizkia, ketika kita memperoleh tahun-tahun yang baru yang ditambahkan kepada hidup kita, kita memang pantas melakukannya. Setelah dibebaskan dari masalah apapun, ketika sukacita bertunas kembali, marilah kita kunjungi kembali kaki salib, dan perbarui pengudusan diri kita. Lebih utama lagi, marilah kita melakukannya setelah berbuat dosa apapun yang mendukakan Roh Kudus, atau mempermalukan nama Allah; ketika itu marilah kita melihat darah yang menjadikan kita lebih putih dari salju [Yesaya 1:18], dan persembahkan diri kita kembali kepada Tuhan. Hendaklah tidak hanya masalah-masalah kita yang meneguhkan pengabdian kita kepada Allah, tetapi kemakmuran kita pun seharusnya demikian. Saat kita mengalami suatu kejadian yang layak disebut "mahkota rahmat," [1] maka tentu saja, jika Ia telah memahkotai kita, kita pun seharusnya memahkotai Allah kita; mari kita keluarkan lagi semua perhiasan sebagai tanda kerajaan ilahi yang tersimpan dalam lemari perhiasan di dalam hati kita, dan persilakan Allah duduk di atas takhta cinta kasih kita, berhiaskan pakaian kerajaan. Kalau saja kita mau belajar mendapat sesuatu yang berguna di dalam kemakmuran kita, kita seharusnya tidak memerlukan penderitaan terlalu banyak. Kalau saja kita mau mengumpulkan segala yang baik yang bisa kita dapatkan dari sebuah ciuman, kita tidak usah sering-sering terluka oleh karena rotan. Apakah belakangan ini kita sempat menerima berkat yang tidak begitu terduga? Apakah Tuhan menegakkan kaki kita di tempat yang lapang [Mazmur 31:8]? Dapatkah kita bernyanyi atas rahmat yang berlipat ganda? Maka, inilah hari untuk meletakkan tangan kita pada tanduk-tanduk mezbah, dan mengatakan, "Ikatlah diriku di sini, ya Allahku; ikatlah diriku di sini dengan tali, bahkan untuk selama-lamanya.'' [Mazmur 118:27] Sebanyak kita membutuhkan pemenuhan janji-janji baru dari Allah, marilah kita persembahkan doa-doa baru agar nazar-nazar lamamu tidak gagal ditepati. Marilah kita pagi hari ini bersama-Nya mengikat perjanjian yang teguh, oleh sebab penderitaan Yesus yang bulan lalu telah kita renungkan dengan rasa syukur.
-                    </p>
-                    <p>
-                        [1] crowning mercies, sebutan pada kemenangan besar pada Perang Saudara Inggris: The dimensions of this mercy are above my thoughts. It is, for aught I know, a crowning mercy.
-                    </p>                                       
-                    <p>
-            Ayat Selengkapnya: Nehemia 9:38, Berdasarkan semuanya ini kami mengikat perjanjian yang teguh yang kami catat dengan dibubuhi meterai para pemimpin kami, orang-orang Lewi kami dan para imam kami.
-                    </p>
-                </div>
-                
-                <!-- Doa -->
-                <div class="prayer">
-                    <div class="prayer-label">Doa</div>
-                    <div>
-                      Tuhan, hari ini aku datang kembali kepada-Mu.
-Perbarui hatiku, teguhkan komitmenku, dan ikat aku tetap setia kepada-Mu.
-Jangan biarkan aku hanya ingat Engkau saat susah, tapi juga saat diberkati. Amin.
-                    </div>
-                </div>
-            </div>
-            
-            <!-- TOMBOL KEMBALI KE BERANDA -->
-            <div class="btn-container">
-                <button class="btn-renungan" onclick="showPage('home')" style="background: transparent; color: #ffd700; border: 2px solid #ffd700;">
-                    ← Kembali ke Beranda
-                </button>
-            </div>
-        </section>
+<!-- UCFM -->
+<div class="section" id="ucfmSection">
+    <button class="back-btn" onclick="goBack()">← Kembali</button>
+    <h2>Renungan UCFM & Shalom</h2>
+    <textarea id="ucfmInput" placeholder="Enter devotion theme..."></textarea>
+    <button onclick="generate('ucfm')">Create Devotion</button>
+    <div class="result" id="ucfmResult"></div>
+</div>
 
-        <!-- HALAMAN QUOTES -->
-        <section class="page-section" id="quotes">
-            <div class="quote-section">
-                <div class="quote-icon">"</div>
-                
-               <div class="quote-text">
-                “Kesetiaan kecil yang diulang setiap hari membentuk komitmen besar seumur hidup.”
-                </div>
-                
-                <div class="quote-author">
-                    — John Maxwell
-                </div>
-            </div>
-        </section>
-    </main>
+</div>
 
-    <footer>
-        <div class="copyright">© 2026 by Ps. Yanto Goutama</div>
-        <div>Renungan Harian Embun Pagi | Sumber: Morning & Evening</div>
-        <div class="footer-verse">"Sebab Aku ini mengetahui rancangan-rancangan apa yang ada pada-Ku mengenai kamu, demikianlah firman TUHAN, yaitu rancangan damai sejahtera dan bukan rancangan kecelakaan, untuk memberikan kepadamu hari depan yang penuh harapan." — Yeremia 29:11</div>
-    </footer>
+<div class="footer">
+    "Firman-Mu adalah pelita bagi kakiku, terang bagi jalanku" — Mazmur 119:105
+</div>
 
-    <script>
-        // Fungsi untuk menampilkan halaman
-        function showPage(pageName) {
-            // Sembunyikan semua halaman
-            const pages = document.querySelectorAll('.page-section');
-            pages.forEach(page => {
-                page.classList.remove('active');
-            });
-            
-            // Tampilkan halaman yang dipilih
-            document.getElementById(pageName).classList.add('active');
-            
-            // Update active state pada menu
-            const navLinks = document.querySelectorAll('.nav-link');
-            navLinks.forEach((link, index) => {
-                link.classList.remove('active');
-                if (pageName === 'home' && index === 1) link.classList.add('active');
-                if (pageName === 'quotes' && index === 3) link.classList.add('active');
-            });
-            
-            // Scroll ke atas
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-        
-        // Set tanggal hari ini
-        function setCurrentDate() {
-            const now = new Date();
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            document.getElementById('currentDate').textContent = now.toLocaleDateString('id-ID', options);
-        }
-        
-        // Inisialisasi
-        document.addEventListener('DOMContentLoaded', function() {
-            setCurrentDate();
-        });
-    </script>
+<script>
+const data = {
+    verses: [
+        {ref:"Mazmur 46:1",text:"Allah itu bagi kita tempat perlindungan dan kekuatan, sebagai penolong dalam kesesakan sangat terbukti."},
+        {ref:"Filipi 4:13",text:"Segala perkara dapat kutanggung di dalam Dia yang memberi kekuatan kepadaku."},
+        {ref:"Yesaya 41:10",text:"Janganlah takut, sebab Aku menyertai engkau; janganlah bimbang, sebab Aku ini Allahmu."},
+        {ref:"Matius 11:28",text:"Marilah kepada-Ku, semua yang letih lesu dan berbeban berat, Aku akan memberi kelegaan kepadamu."},
+        {ref:"Yeremia 29:11",text:"Sebab Aku ini mengetahui rancangan-rancangan apa yang ada pada-Ku mengenai kamu, yaitu rancangan damai sejahtera."},
+        {ref:"Roma 8:28",text:"Kita tahu sekarang, bahwa Allah turut bekerja dalam segala sesuatu untuk mendatangkan kebaikan."},
+        {ref:"2 Korintus 12:9",text:"Cukuplah kasih karunia-Ku bagimu, sebab kekuatan-Ku sempurna dalam kelemahan."},
+        {ref:"Mazmur 23:1-3",text:"TUHAN adalah gembalaku, takkan kekurangan aku. Ia membaringkan aku di padang yang berumput hijau."},
+        {ref:"Yesaya 40:31",text:"Tetapi orang-orang yang menanti-nantikan TUHAN akan mendapat kekuatan baru; mereka akan naik sayap seperti elang."},
+        {ref:"Yohanes 14:27",text:"Damai sejahtera Kutinggalkan bagimu, damai sejahtera-Ku berikan kepadamu."}
+    ],
+    engVerses: [
+        {ref:"Psalm 46:1",text:"God is our refuge and strength, an ever-present help in trouble."},
+        {ref:"Philippians 4:13",text:"I can do all things through Christ who strengthens me."},
+        {ref:"Isaiah 41:10",text:"Do not fear, for I am with you; do not be dismayed, for I am your God."},
+        {ref:"Matthew 11:28",text:"Come to me, all you who are weary and burdened, and I will give you rest."},
+        {ref:"Jeremiah 29:11",text:"For I know the plans I have for you, declares the LORD, plans to prosper you."},
+        {ref:"Romans 8:28",text:"And we know that in all things God works for the good of those who love Him."},
+        {ref:"2 Corinthians 12:9",text:"My grace is sufficient for you, for my power is made perfect in weakness."},
+        {ref:"Psalm 23:1-3",text:"The LORD is my shepherd, I lack nothing. He makes me lie down in green pastures."},
+        {ref:"Isaiah 40:31",text:"But those who hope in the LORD will renew their strength. They will soar on wings like eagles."},
+        {ref:"John 14:27",text:"Peace I leave with you; my peace I give you."}
+    ],
+    theologians: [
+        {name:"C.S. Lewis",quote:"Tuhan tidak menjanjikan kehidupan tanpa kesulitan, tapi Dia menjanjikan kekuatan untuk menghadapinya."},
+        {name:"John Piper",quote:"Tuhan paling dimuliakan ketika kita paling puas di dalam Dia."},
+        {name:"Timothy Keller",quote:"Cinta sejati bukanlah perasaan, melainkan komitmen untuk mengorbankan diri demi kebaikan orang lain."},
+        {name:"Dietrich Bonhoeffer",quote:"Iman bukanlah lari dari kenyataan, melainkan menghadapi kenyataan dengan harapan."},
+        {name:"Charles Spurgeon",quote:"Iman melihat yang tak terlihat, percaya yang tak terduga, dan menerima yang tak terpikirkan."},
+        {name:"A.W. Tozer",quote:"Yang paling penting dalam hidup adalah hubungan kita dengan Tuhan, yang lain hanyalah tambahan."},
+        {name:"J.I. Packer",quote:"Mengenal Tuhan adalah kehidupan kekal, dan setiap hari adalah kesempatan untuk mengenal Dia lebih dalam."},
+        {name:"Francis Chan",quote:"Kita terlalu sering puas dengan kekristenan yang aman, sementara Tuhan memanggil kita untuk berani."},
+        {name:"Corrie ten Boom",quote:"Tidak ada lubang yang terlalu dalam bagi kasih Tuhan untuk menjangkaunya."},
+        {name:"Oswald Chambers",quote:"Tuhan tidak meminta kita untuk mengerti rencana-Nya, tetapi untuk mempercayai hati-Nya."}
+    ],
+    engTheologians: [
+        {name:"C.S. Lewis",quote:"God does not promise a life without difficulty, but He promises strength to face it."},
+        {name:"John Piper",quote:"God is most glorified in us when we are most satisfied in Him."},
+        {name:"Timothy Keller",quote:"True love is not a feeling, but a commitment to sacrifice for the good of others."},
+        {name:"Dietrich Bonhoeffer",quote:"Faith is not running from reality, but facing reality with hope."},
+        {name:"Charles Spurgeon",quote:"Faith sees the invisible, believes the unexpected, and receives the unimaginable."},
+        {name:"A.W. Tozer",quote:"The most important thing in life is our relationship with God; everything else is secondary."},
+        {name:"J.I. Packer",quote:"Knowing God is eternal life, and every day is an opportunity to know Him more deeply."},
+        {name:"Francis Chan",quote:"We are too often satisfied with safe Christianity, while God calls us to be bold."},
+        {name:"Corrie ten Boom",quote:"There is no pit so deep that God's love is not deeper still."},
+        {name:"Oswald Chambers",quote:"God does not ask us to understand His plan, but to trust His heart."}
+    ],
+    prayers: [
+        "Ya Tuhan, terima kasih atas kasih setia-Mu hari ini. Berikanlah kami kekuatan untuk menghadapi setiap tantangan dengan iman yang teguh. Amin.",
+        "Bapa Surgawi, kami bersyukur atas berkat-Mu yang tak terhitung. Tolonglah kami untuk selalu mengandalkan-Mu dalam setiap langkah hidup kami. Amin.",
+        "Tuhan Yesus, saat kami merasa lelah dan putus asa, ingatkanlah kami bahwa Engkau selalu menyertai. Berikanlah damai sejahtera-Mu. Amin.",
+        "Allah yang Maha Baik, terima kasih karena rencana-Mu sempurna. Bantu kami untuk percaya kepada-Mu meski jalan terkadang tidak kami mengerti. Amin.",
+        "Roh Kudus, pimpinlah kami dalam kebenaran. Berikanlah hikmat untuk membuat keputusan yang benar. Amin."
+    ],
+    engPrayers: [
+        "Lord, thank You for Your faithfulness today. Give us strength to face every challenge with unwavering faith. Amen.",
+        "Heavenly Father, we are grateful for Your countless blessings. Help us to always depend on You. Amen.",
+        "Lord Jesus, when we feel tired and hopeless, remind us that You are always with us. Give us Your peace. Amen.",
+        "God Most Good, thank You because Your plan is perfect. Help us to trust in You even when the path is unclear. Amen.",
+        "Holy Spirit, lead us in truth. Give us wisdom to make right decisions. Amen."
+    ],
+    titles: ["Kekuatan di Dalam Kelemahan","Kasih yang Tak Terbatas","Iman yang Menggerakkan Gunung","Damai dalam Badai","Pengharapan yang Baru","Kasih Karunia yang Mengubah","Kemenangan di Dalam Kristus","Kesabaran yang Membuahkan","Cahaya di Tengah Kegelapan","Keberanian untuk Percaya"],
+    engTitles: ["Strength in Weakness","Unlimited Love","Faith that Moves Mountains","Peace in the Storm","A New Hope","Transforming Grace","Victory in Christ","Patience that Bears Fruit","Light in the Darkness","Courage to Believe"]
+};
+
+function showSection(id) {
+    document.getElementById('mainMenu').style.display = 'none';
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.getElementById(id + 'Section').classList.add('active');
+}
+
+function goBack() {
+    document.getElementById('mainMenu').style.display = 'block';
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+}
+
+function hash(str) {
+    let h = 0;
+    for(let i = 0; i < str.length; i++) h = ((h << 5) - h) + str.charCodeAt(i);
+    return Math.abs(h);
+}
+
+function generate(type) {
+    const input = document.getElementById(type + 'Input').value.trim();
+    if(!input) return alert('Silakan masukkan teks terlebih dahulu');
+    
+    const seed = hash(input);
+    const resultDiv = document.getElementById(type + 'Result');
+    let html = '';
+    
+    if(type === 'embun') {
+        const v = data.verses[seed % data.verses.length];
+        html = `<h4>Keterangan Singkat</h4>
+                <p>Dari kalimat yang Anda bagikan, kita dapat merenungkan bahwa dalam setiap keadaan hidup, Tuhan selalu menyediakan kekuatan dan pengharapan bagi umat-Nya. <strong>${input}</strong> Ini mengingatkan kita untuk senantiasa bersandar pada Tuhan.</p>
+                <div class="verse">"${v.text}"<br><strong>— ${v.ref}</strong></div>
+                <p>Semoga ayat di atas menjadi penghiburan dan kekuatan bagi hati Anda hari ini.</p>`;
+    }
+    else if(type === 'psyanto') {
+        const t = data.titles[seed % data.titles.length];
+        const v = data.verses[seed % data.verses.length];
+        const p = data.prayers[seed % data.prayers.length];
+        const q = data.theologians[seed % data.theologians.length];
+        html = `<h4>Judul: ${t}</h4>
+                <p><strong>${input}</strong> Renungan ini mengajak kita untuk lebih mendalami makna iman dalam kehidupan sehari-hari. Setiap pengalaman adalah bagian dari rencana Tuhan yang indah.</p>
+                <div class="verse">"${v.text}"<br><strong>— ${v.ref}</strong></div>
+                <p><strong>Doa:</strong> ${p}</p>
+                <div class="quote"><p>"${q.quote}"</p><small>— ${q.name}</small></div>`;
+    }
+    else if(type === 'ucfm') {
+        const t = data.engTitles[seed % data.engTitles.length];
+        const v = data.engVerses[seed % data.engVerses.length];
+        const p = data.engPrayers[seed % data.engPrayers.length];
+        const q = data.engTheologians[seed % data.engTheologians.length];
+        html = `<h4>Title: ${t}</h4>
+                <p><strong>${input}</strong> This devotion invites us to reflect on how God works in our daily lives. Every experience is part of God's beautiful plan.</p>
+                <div class="verse">"${v.text}"<br><strong>— ${v.ref}</strong></div>
+                <p><strong>Prayer:</strong> ${p}</p>
+                <div class="quote"><p>"${q.quote}"</p><small>— ${q.name}</small></div>`;
+    }
+    
+    resultDiv.innerHTML = html;
+    resultDiv.classList.add('show');
+}
+</script>
+
 </body>
 </html>
